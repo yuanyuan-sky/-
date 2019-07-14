@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+    var m=[7,1,3,5,6,2,4,0,-1];
+    for(var i=0;i<m.length-1;i++){
+        var flog=0;
+        for(var j=0;j<m.length-i-1;j++){
+            if(m[j]>m[j+1]){
+                var temp;
+                temp=m[j];
+                m[j]=m[j+1];
+                m[j+1]=temp;
+                flog++;
+            }
+        }
+        if(flog == 0){
+            break;
+        }
+    }
+    console.log(m);
+</script>

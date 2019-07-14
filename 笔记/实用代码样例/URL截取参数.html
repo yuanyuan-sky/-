@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    var str = "http://localhost:80/index.html?ename=tom&age=10&like=lol&like=basketboll";
+    //把？后面的截取出来 ename=tom&age=10&like=lol&like=basketboll
+    str = str.substring(str.lastIndexOf("?") + 1, str.length);
+    //把str按照&符号分割成数组["ename=tom","age=10","like=lol","like=basketboll"]
+    strs = str.split("&");
+
+    var data = {};
+
+    for (var i=0;i<strs.length;i++){
+        //获取数组每一项的等号前面字符
+        var prop = strs[i].substring(0, strs[i].indexOf("="));
+        //获取每一项等号后面的字符
+        var value = strs[i].substring(strs[i].indexOf("=") + 1, strs[i].length);
+
+        if (data[prop]){
+            //如果地址里有多个重复的参数，则在第二个参数来的时候，把对象中的这个属性转为数组
+            //多个相同参数的时候，第一个进来后，是string类型，第二个进来就转为数组
+            if (typeof (data[prop])=="string"){
+                var temp = data[prop];
+                data[prop] = new Array();
+                data[prop].push(temp);
+                data[prop].push(value);
+            } else {
+                //多个相同参数的时候，第二个进来后就转为数组，后面的直接添加就行
+                data[prop].push(value);
+            }
+        } else {
+            data[prop] = value;
+        }
+    }
+    console.log(data);
+</script>
