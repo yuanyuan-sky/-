@@ -138,7 +138,8 @@ java7开始，可以为数字字面量加下划线
 	short b=128;      0000 0000 1000 0000
 	a=b;      byte只有8位，会把前面的8位截掉 剩10000000 就是-128
 
-![](https://i.imgur.com/Sht5TOQ.png)
+
+![avatar](..\imgs\1.png) 
 
 
 **上图中，虚线代表可能有精度损失的转换，实现是没有精度损失的转换**
@@ -231,7 +232,7 @@ next  与nextLine的返回值是String
 		System.out.println("请输入第二个数：");
 		String b=s.nextLine();
 		System.out.println("输入的数是："+a+"---"+b);
-![](https://i.imgur.com/T2Zue5E.png)  
+![avatar](..\imgs\2.png)  
 可以看到nextLine自动读取了nextInt后的enter符作为他的结束符，所以没办法输入b。其它的next。。。方法【后面】使用nextLine都是这样。  
 **解决方法**  
 如果非要在后面写nextLine的话，写两个nextLine，第一个nextLine用来过滤掉上面的next的enter符

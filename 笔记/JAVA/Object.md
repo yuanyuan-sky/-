@@ -7,7 +7,9 @@
 #equals
 Object的equals方法是判断两个对象是否有相同的引用，即地址是否相同，String对象之所以能用equals方法判断两个字符串是否相等，是因为String类重写了Object的equals方法  
 **getClass()方法，返回一个对象所属的包和class,new的哪个类就返回哪个类，多态对象.getClass()返回的是new 的类**  
-**instance :多态对象 instance 父类|自身类，都返回true**
+**instance :多态对象 instance 父类|自身类，都返回true**  
+**子类对象 instanceof 父类  返回true**  
+**父类对象instanceof 子类   返回false**
 
 	class  异常2.Test//class字符是固定的，异常是包名，Test是类名
 	getClass().getName();//返回字符串；异常.Test；没有前面的class字符
@@ -56,7 +58,7 @@ Object的equals方法是判断两个对象是否有相同的引用，即地址�
 4. 一致性：如果x和y引用的对象没有发生变化，则反复调用x.equals(y)；返回的结果一致
 5. x.equals(null);返回false
 
-![](https://i.imgur.com/RWd1LJT.jpg)
+![avatar](..\imgs\3.png)
 
 #hash code(散列码)
 是Object的方法。是由对象导出的一个整型值。散列码是没有规律的。  
