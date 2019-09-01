@@ -5,7 +5,7 @@
 只有4个方法  
 1. E next();返回下一个元素  
 2. boolean hasNext();是否还有下一个  
-3. void remove();删除上次调用next方法时返回的元素。remove方法不能连续调用两次。
+3. void remove();删除上次调用next方法时返回的元素。remove方法不能连续调用两次。  
 4. default void forEachRemaining(Consumer<? super E> action)   
 java迭代器是位于两个元素之间，最开始位于第一个元素的前面， 所有在执行remove方法之前，必须要执行next方法
 ![avatar](..\imgs\4.png)
@@ -386,20 +386,125 @@ java为映射提供了两个通用的实现：HashMap和TreeMap
             return 12;
         });
         System.out.println(map);
+6. Set<Map.Entry<K,V>>  entrySet()
+
+		返回Map.Entry对象（映射中的键值对的一个视图集），可以从这个集中删除元素，它们将从映射中删除，但是不能增加任何元素。
+7. Set<K> keySet()
 		
+		返回映射中所有键的一个视图集
+8. Collection<V> values()
+
+		返回映射中所有值的一个集合视图
+##java.util.Map.Entry<K,V>
+1. K getKey()
+2. V getValue()
+
+		返回这一条目的键或者值
+3. V setValue(V newValue)
+
+		将相关映射中的值改为新值，并返回原来的值
+#链接散列集与映射
+LinkedHashSet和LinkedHashMap类用来记住插入元素项的顺序。。当条目插入时，就会并入到双向链表中。
+##链接散列集LinkedHashSet
+
+#枚举集与映射
+EnumSet是一个枚举类型元素集的高效实现。由于枚举类型只有有限个实例，所以EnumSet内部用位序列实现。如果对应的值在集中，则相应的位被置为1  
+**EnumSet类没有公共的构造器。可以使用静态方法工厂构造这个集**
+
+	public enum Weekday {
+	    MONDAY(1, "星期一"),
+	    TUESDAY(2, "星期二"),
+	    WEDNESDAY(2, "星期三");
+	    private int code;
+	    private String chinese;
+	    Weekday(int code, String chinese) {
+	        this.code = code;
+	        this.chinese = chinese;
+	    }
+	
+	    public int getCode() {
+	        return code;
+	    }
+	
+	    public String getChinese() {
+	        return chinese;
+	    }
+	}
+	-----------------------
+	public class Test1 {
+	    public static void main(String[] args) {
+	        EnumSet<Weekday> enumSet = EnumSet.allOf(Weekday.class);
+	        enumSet.forEach(t1->{
+	            System.out.println("(" + t1.getCode() + "," + t1.getChinese() + ")");
+	        });
+	    }
+	}
+
+##java.util.EnumSet<E extends Enum<E>>
+1. static <E extends Enum<E>> EnumSet<E> allOf(Class<E> enumType)
 		
-		
-		
+		返回一个包含给定枚举类型的所有值的一个集合
+2. static <E extends Enum<E>> EnumSet<E> noneOf(Class<E> enumType)
 
+		返回一个空集，并有足够的空间保存给定的枚举类型的所有值
+3. static <E extends Enum<E>> EnumSet<E> range(E from,E to)
 
+		返回一个包含from~to之间的所有值的集，包括边界元素
+4. static <E extends Enum<E>> EnumSet<E> of(E value)
+5. static <E extends Enum<E>> EnumSet<E> of(E value,E... values)
 
-		
-		
+		返回包含给定值的集	
+###EnumMap
+是一个键类型为枚举类型的映射。
 
+	EnumMap<Weekday, String> map = new EnumMap<Weekday, String>(Weekday.class);
+	
+    map.put(Weekday.MONDAY, "这是啥啊");
+###java.util.EnumMap<K extends Enum<K>,V>
+1. EnumMap(Class<K> keyType)
 
+		构建一个键为指定类型的空映射
+#视图与包装器
+通过使用视图可以获得其它的实现了Collection接口和Map接口的对象。  
+例如map的keySet方法，初看起来是创建了一个新集，并且将所有键都添加到这个新集中。其实不是这样的。ketSet方法返回一个实现Set接口的类对象，这个类的方法对原映射进行操作。这种集合称为视图。
 
+	Map<String, String> map = new HashMap<>();
+    map.put("1", "1");
+    map.put("2", "2");
+    map.put("3", "3");
+    Set<String> keys = map.keySet();
+    keys.forEach(v -> System.out.println(v));  //输出所有的键：1，2，3
+    keys.remove("1");   //从返回的set中删除 "1"
+    keys.add("66");     //会抛出一个异常UnsupportedOperationException
+    System.out.println("--------------");
+    map.forEach((k, v) ->{
+        System.out.println("(" + k + "," + v + ")"); //（2，2），（3，3）
+    });
+	对keys集合进行操作，影响到了原来的map。所以keys操作的还是原map
 
+1. Arrays.asList(T... v)将数组转为list，返回一个List。对该返回的list进行操作，其实操作的还是原数组。对list执行remove（）方法，就会抛出一个异常。
+2. Collections.nCopies(10,"tom");咋一看，以为返回一个List，里面有十个字符串"tom"，但是返回的list是无法进行修改操作的。
+##子范围
+可以为很多集合建立子范围视图
+1. List<E> subList(int from,int to)
 
+		截取集合，返回一个list
+		但是如果对list执行clear()方法，原集合中的这部分元素也会消失
+##不可修改的视图
+Collections还有几个方法，用于产生集合的不可修改视图。  
+1. Collections.unmodifiableList(list)  
+2. Collections.unmodifiableMap(list)  
+返回的集合都是不能修改的，所有的更改方法都被定义为抛出一个UnsupportedOpeartionException异常，而不是将调用传递给底层集合
 
+#同步视图
+类库的设计者使用视图机制来确保常规集合的线程安全，而不是实现线程安全的集合类  
+例如Collections来的静态synchronizedMap方法，可以将任何一个映射表转换为具有同步方法访问的Map：
 
+	Map<String> map = Collections.synchronizedMap(new HashMap<String>());
+#受查视图
+”受查“视图用来对泛型类型发生问题时，提供调试支持。实际上将错误类型的元素混入泛型集合中的问题极有可能发生
+
+	ArrayList<String> list = new ArrayList<>();
+    List<String> safeList = Collections.checkedList(list, String.class);
+	每个插入的元素都会检查元素是否是指定的类型，如果不是就立刻抛出一个ClassCastException异常
 
