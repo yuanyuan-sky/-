@@ -508,3 +508,28 @@ Collections还有几个方法，用于产生集合的不可修改视图。
     List<String> safeList = Collections.checkedList(list, String.class);
 	每个插入的元素都会检查元素是否是指定的类型，如果不是就立刻抛出一个ClassCastException异常
 
+![avatar](..\imgs\1.1.png)  
+![avatar](..\imgs\1.2.png)  
+![avatar](..\imgs\1.3.png)  
+![avatar](..\imgs\1.4.png)  
+
+#属性映射
+java的properties文件   
+有3个特性    
+1. 键与值都是字符串  
+2. 表可以保存到一个文件中，也可以从文件中加载   
+3. 使用一个默认的辅助表   
+
+#栈
+先进后出  
+Stack类扩展为Vector类，它可以让栈使用不属于栈操作的insert和remove方法。即可以在任何地方进行插入或删除操作，而不仅仅是在栈顶。
+##java.util.Stack`<E>`
+1. E push(E item)
+
+		将item压入栈并返回item
+2. E pop()
+
+		弹出并返回栈顶的item。如果栈为空，请不要调用这个方法
+3. E peek()
+
+		返回栈顶元素，但不弹出。如果栈为空，请不要调用这个方法
