@@ -5,7 +5,7 @@
 
 ## Structs2 的工作原理以及文件结构 
 ### 工作原理  
-![avatar](..\imgs\6688.png)  
+![](https://github.com/yuanyuan-sky/-/blob/master/笔记/imgs/6688.png)    
 
 1. 客户端初始化一个指向Servlet容器（例如Tomcat）的请求
 2. 这个请求经过一系列的过滤器（Filter）（这些过滤器中有一个叫做ActionContextCleanUp的可选过滤器，这个过滤器对于Struts2和其他框架的集成很有帮助，例如：SiteMesh Plugin）
